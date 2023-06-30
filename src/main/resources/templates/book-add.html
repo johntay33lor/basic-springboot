@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Form</title>
+    <style>
+        /* CSS for input fields */
+        .input-field {
+            display: block;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* CSS for submit button */
+        .submit-button {
+            display: inline-block;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4caf50;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Book Form</h1>
+<!--<form th:object="${book}" th:action="@{/books/create}" method="post">-->
+<form th:action="@{/books/add}" method="post" th:object="${book}" >
+    <fieldset>
+    <input type="hidden" th:field="*{id}" />
+    <label>Title:</label>
+    <input class="input-field" type="text" th:field="*{title}" />
+    <label>Author:</label>
+    <input class="input-field" type="text" th:field="*{author.name}" />
+    <input class="submit-button" type="submit" th:value="Save" />
+    </fieldset>
+</form>
+</body>
+</html>
+

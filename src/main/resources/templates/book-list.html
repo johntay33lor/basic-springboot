@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+    <style>
+        /* CSS for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        /* CSS for buttons */
+        .button {
+            display: inline-block;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4caf50;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Book List</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}">1</td>
+        <td th:text="${book.title}">To Kill a Mockingbird</td>
+        <td th:text="${book.author.name}">Harper Lee</td>
+        <td>
+            <a class="button" th:href="@{/books/{bookId}/edit(bookId=${book.id})}">Edit</a>
+            <a class="button"  th:href="@{/books/{bookId}/delete(bookId=${book.id})}">Delete</a>
+
+        </td>
+    </tr>
+</table>
+<!--<button class="button" type="submit" onclick="location.href='/book-add'">Add Book</button>-->
+<a class="button"  th:href="@{/books/add}">Add Book</a>
+<!--<button class="button" type="submit" onclick="location.href='/author-list'">Author List</button>-->
+<a class="button"  th:href="@{/authors}">Author List</a>
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Author List</title>
+    <style>
+        /* CSS for buttons */
+        .button {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4caf50;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        /* CSS for input field */
+        .input-field {
+            display: inline-block;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<h1>Author List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="author : ${authors}">
+        <td th:text="${author.getId()}"></td>
+        <td th:text="${author.getName()}"></td>
+        <td>
+            <a class="button" th:href="@{/authors/edit/{id}(id=${author.getId()})}">Edit</a>
+            <a class="button" th:href="@{/authors/delete/{id}(id=${author.getId()})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<button class="button" type="submit" onclick="location.href='/authors/add'">Add Author</button>
+<button class="button" onclick="location.href='/books'">Home</button>
+</body>
+</html>
+
+
