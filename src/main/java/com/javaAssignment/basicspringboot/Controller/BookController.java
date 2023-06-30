@@ -31,13 +31,13 @@ public class BookController {
     @PostMapping("/add")
     public String addBook(@ModelAttribute("book") Book book) {
         Author author = book.getAuthor();
-        authorRepository.save(author); // Save the author first
+        authorRepository.save(author);
 
-        String title = book.getTitle(); // Get the title from the form
-        book.setTitle(title); // Set the title on the book object
+        String title = book.getTitle();
+        book.setTitle(title);
 
         bookRepository.save(book);
-        return "redirect:/books"; // Redirect to the book list page
+        return "redirect:/books";
     }
 
 
@@ -52,7 +52,7 @@ public class BookController {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + id));
         model.addAttribute("book", book);
-        return "book-update"; // Updated template name to match the HTML file
+        return "book-update";
     }
 
     @PostMapping("/{id}/edit")

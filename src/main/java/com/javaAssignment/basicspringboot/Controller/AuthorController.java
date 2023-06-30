@@ -26,12 +26,6 @@ public class AuthorController {
         return "author-list";
     }
 
-//    @GetMapping
-//    public String getAllAuthors(Model model) {
-//        model.addAttribute("author", authorRepository.findAll());
-//        return "author-list";
-//    }
-
     @GetMapping("/details/{id}")
     public String getAuthorById(@PathVariable("id") Long id, Model model) {
         Author author = authorRepository.findById(id)
@@ -65,7 +59,6 @@ public class AuthorController {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid author id: " + id));
 
-        // Update the author's name or any other properties as needed
         author.setName(updatedAuthor.getName());
         authorRepository.save(author);
 

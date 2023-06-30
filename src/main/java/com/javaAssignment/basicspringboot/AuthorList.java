@@ -17,8 +17,6 @@ public class AuthorList implements CommandLineRunner {
     public void run(String... args) {
         Author author1 = new Author("Harper Lee");
         Author author2 = new Author("Kobe Bryant");
-//        authorRepository.save(author1);
-//        authorRepository.save(author2);
 
     }
 }
