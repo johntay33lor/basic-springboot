@@ -21,6 +21,12 @@
       border-radius: 4px;
     }
 
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
     button[type="submit"] {
       display: inline-block;
       padding: 8px 12px;
@@ -45,6 +51,7 @@
   <div>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" th:field="*{name}" required>
+    <span th:if="${#fields.hasErrors('name')}" class="error" th:errors="*{name}"></span>
   </div><br>
   <button type="submit">Update</button>
 </form>

@@ -7,6 +7,8 @@ import com.javaAssignment.basicspringboot.Repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,7 +31,11 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String addBook(@ModelAttribute("book") Book book) {
+    public String addBook(@ModelAttribute("book") @Validated Book book, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "book-add";
+        }
+
         Author author = book.getAuthor();
         authorRepository.save(author);
 
@@ -56,7 +62,11 @@ public class BookController {
     }
 
     @PostMapping("/{id}/edit")
-    public String editBook(@PathVariable("id") Long id, @ModelAttribute("book") Book updatedBook) {
+    public String editBook(@PathVariable("id") Long id, @ModelAttribute("book") @Validated Book updatedBook, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "book-update";
+        }
+
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid book ID: " + id));
 

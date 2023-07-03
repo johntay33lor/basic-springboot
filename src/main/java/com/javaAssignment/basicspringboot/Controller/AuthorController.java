@@ -5,6 +5,8 @@ import com.javaAssignment.basicspringboot.Repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,7 +43,11 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public String addAuthor(@ModelAttribute("author") Author author) {
+    public String addAuthor(@ModelAttribute("author") @Validated Author author, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "author-add";
+        }
+
         authorRepository.save(author);
         return "redirect:/authors";
     }
@@ -55,19 +61,22 @@ public class AuthorController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editAuthor(@PathVariable("id") Long id, @ModelAttribute("author") Author updatedAuthor) {
-        Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid author id: " + id));
+    public String editAuthor(@PathVariable("id") Long id, @ModelAttribute("author") @Validated Author updatedAuthor, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "author-update";
+        }
+            Author author = authorRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid author id: " + id));
 
-        author.setName(updatedAuthor.getName());
-        authorRepository.save(author);
+            author.setName(updatedAuthor.getName());
+            authorRepository.save(author);
 
-        return "redirect:/authors";
+            return "redirect:/authors";
+        }
+
+        @GetMapping("/delete/{id}")
+        public String deleteAuthor (@PathVariable("id") Long id){
+            authorRepository.deleteById(id);
+            return "redirect:/authors";
+        }
     }
-
-    @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable("id") Long id) {
-        authorRepository.deleteById(id);
-        return "redirect:/authors";
-    }
-}

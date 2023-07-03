@@ -31,11 +31,19 @@
         .submit-button:hover {
             background-color: #45a049;
         }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
 <h1>Add Author</h1>
 <form th:action="@{/authors/add}" method="post" th:object="${author}">
+
+    <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
     <div>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" th:field="*{name}" required>

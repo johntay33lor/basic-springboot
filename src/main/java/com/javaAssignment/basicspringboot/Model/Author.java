@@ -1,6 +1,8 @@
 package com.javaAssignment.basicspringboot.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -13,6 +15,8 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Enter a name")
+    @Size(min=2, max=100)
     private String name;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
@@ -22,12 +26,14 @@ public class Author {
     }
 
     public Author(String name) {
+
         this.name = name;
     }
 
 
     // Getters and setters
     public Long getId() {
+
         return id;
     }
 

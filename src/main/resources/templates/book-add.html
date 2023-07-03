@@ -12,6 +12,13 @@
             border-radius: 4px;
         }
 
+        /* CSS for validation error messages */
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
         /* CSS for submit button */
         .submit-button {
             display: inline-block;
@@ -33,17 +40,17 @@
 </head>
 <body>
 <h1>Book Form</h1>
-<!--<form th:object="${book}" th:action="@{/books/create}" method="post">-->
-<form th:action="@{/books/add}" method="post" th:object="${book}" >
+<form th:action="@{/books/add}" method="post" th:object="${book}">
     <fieldset>
-    <input type="hidden" th:field="*{id}" />
-    <label>Title:</label>
-    <input class="input-field" type="text" th:field="*{title}" />
-    <label>Author:</label>
-    <input class="input-field" type="text" th:field="*{author.name}" />
-    <input class="submit-button" type="submit" th:value="Save" />
+        <input type="hidden" th:field="*{id}" />
+        <label>Title:</label>
+        <input class="input-field" type="text" th:field="*{title}" />
+        <span th:if="${#fields.hasErrors('title')}" class="error-message" th:errors="*{title}"></span>
+        <label>Author:</label>
+        <input class="input-field" type="text" th:field="*{author.name}" />
+        <span th:if="${#fields.hasErrors('author.name')}" class="error-message" th:errors="*{author.name}"></span>
+        <input class="submit-button" type="submit" value="Save" />
     </fieldset>
 </form>
 </body>
 </html>
-
